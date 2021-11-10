@@ -1,0 +1,1286 @@
+{
+	"info": {
+		"_postman_id": "bfbc62dd-70b9-4543-b529-9032e916140d",
+		"name": "2FA Testing",
+		"description": "# Ekaant - API Collection\n-----------------\nThis API collection uses simple JWT authentication for API calls. All the apis are REST APIs developed over Django REST Framework.\n\n### Headers:\nMust have the following headers:\n- **Authorization** : Token carrier with prefix *\"JWT \"* \nE.g.\n`JWT eyJ0eXAiOjoiY...`\n\n- **Content-Type** : to mention the content type to be exchanged, always set to `application/json`\n\n### API Base Address (For Debugging):\n `http://127.0.0.1:800/api/ekaant/`",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Version - 1",
+			"item": [
+				{
+					"name": "User Registration",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"admin\",\r\n    \"last_name\": \"test\",\r\n    \"email\": \"admin1@gmail.com\",\r\n    \"password\": \"admin@1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v1/register/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v1",
+								"register",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "User Registration",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"first_name\": \"admin\",\r\n    \"last_name\": \"test\",\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"admin@1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/register/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"register",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 15 Oct 2021 05:06:36 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "70"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User Created Successfully\",\n    \"user_email\": \"admin@gmail.com\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Enable 2 FA",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v1/2fa/registration/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v1",
+								"2fa",
+								"registration",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Enable 2 FA",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/2fa/registration/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"2fa",
+										"registration",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 15 Oct 2021 05:08:13 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "161"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": \"True\",\n    \"message\": \"TOTP secret key generated successfully\",\n    \"secret_key\": \"7FRLR5MNTCPI3DRO7CYTCWS44YMIB6AA\",\n    \"issuer\": \"Django\",\n    \"label\": \"admin@gmail.com\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"admin@gmail.com\",\r\n    \"password\":\"admin@1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v1/login/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v1",
+								"login",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"admin@gmail.com\",\r\n    \"password\":\"admin@1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/api/v1/login/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"api",
+										"v1",
+										"login",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 17 Oct 2021 05:44:41 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "630"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": \"True\",\n    \"message\": \"User logged in  successfully\",\n    \"token\": {\n        \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYzNDUzNTg4MCwianRpIjoiZmI0MTU0ZGQ1MWRlNDUzZjlmZDkxZDhhM2U1YzYwMTMiLCJ1c2VyX2lkIjoiZjljZjc1ZTMtMzE3Zi00MmFjLWJiZTQtZTgzZTgyNTNmODc3In0.CwJ-yEDMQF6lrZrScWbSF160cu-DLHZaQ-8JSfDXd5g\",\n        \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM0NDQ5NzgwLCJqdGkiOiIxY2I1ZmY0NDM0ZWY0NzcyOWZhMmUxMjY4YTA5ODQ1MCIsInVzZXJfaWQiOiJmOWNmNzVlMy0zMTdmLTQyYWMtYmJlNC1lODNlODI1M2Y4NzcifQ.ZFIFG-cFuF2OWzlfS8LvuyIVMKZudKYiNAMbwI6SzMY\"\n    },\n    \"user_name\": \"admin test\"\n}"
+						}
+					]
+				},
+				{
+					"name": "2FA Authentication",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"totp\":\"902076\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v1/2fa/authentication/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v1",
+								"2fa",
+								"authentication",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "2FA Authentication-Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"totp\":\"01245\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/2fa/authentication/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"2fa",
+										"authentication",
+										""
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 15 Oct 2021 05:09:28 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "49"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": \"False\",\n    \"message\": \"TOTP is incorrect\"\n}"
+						},
+						{
+							"name": "2FA Authentication-Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"totp\":\"902076\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/2fa/authentication/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"2fa",
+										"authentication",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 15 Oct 2021 05:09:50 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "635"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": \"True\",\n    \"message\": \"User logged in  successfully\",\n    \"token\": {\n        \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYzNDM2MDk5MCwianRpIjoiNDA4OTliYjVlNjBkNDk2ZmIyNDNlMTA5ZTRhMzNmZjgiLCJ1c2VyX2lkIjoiZjljZjc1ZTMtMzE3Zi00MmFjLWJiZTQtZTgzZTgyNTNmODc3In0.8AUpkF2oHM3FTDHpeI-6czGIdS4idD8st4wKPTZtxL0\",\n        \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM0Mjc0ODkwLCJqdGkiOiIwZGM5OGE1ZDVjMGE0MjhjOGQwODcxYTg0MWI2N2Y1YyIsInVzZXJfaWQiOiJmOWNmNzVlMy0zMTdmLTQyYWMtYmJlNC1lODNlODI1M2Y4NzcifQ.k0m9a1zKU5VwZY5qql2Uu9DcdWdoocodpoFFkaUFSs0\"\n    },\n    \"user_name\": \"admin@gmail.com\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Blacklist Token",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYzNDM2MTQ5NiwianRpIjoiN2NhNWM5MmY5YWNmNDNiNzgxYWY1MzQzMGQ2ZjU2ZDAiLCJ1c2VyX2lkIjoiZjljZjc1ZTMtMzE3Zi00MmFjLWJiZTQtZTgzZTgyNTNmODc3In0.0lB9jmXmPpHg_Ouy6xim3zhtVwMd-Zg_AkdYzYnW79Q\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v1/log-out/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v1",
+								"log-out",
+								""
+							]
+						},
+						"description": "# POST Blacklist Token\n------\nThis is a POST request that serves the process of logout for any user. The api carries the `refresh_token` in body which is used by Django to blacklist all associated tokens to the refresh token immediately and blocking all apis unless new `refresh_token` is generated by the user by the process of signing-in."
+					},
+					"response": [
+						{
+							"name": "Blacklist Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYzNDM2MTQ5NiwianRpIjoiN2NhNWM5MmY5YWNmNDNiNzgxYWY1MzQzMGQ2ZjU2ZDAiLCJ1c2VyX2lkIjoiZjljZjc1ZTMtMzE3Zi00MmFjLWJiZTQtZTgzZTgyNTNmODc3In0.0lB9jmXmPpHg_Ouy6xim3zhtVwMd-Zg_AkdYzYnW79Q\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/log-out/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"log-out",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 15 Oct 2021 05:18:52 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "59"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": \"True\",\n    \"message\": \"User logged out successfully\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Version - 2",
+			"item": [
+				{
+					"name": "2FA Registration",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v2/2fa/registration/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v2",
+								"2fa",
+								"registration",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "User Login",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/accounts/api/v2/2fa/registration/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"accounts",
+										"api",
+										"v2",
+										"2fa",
+										"registration",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 18 Oct 2021 07:49:11 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "108"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "\"otpauth://totp/admin%40gmail.com?secret=XLGIIIF2OUMDKTS7ZIZSKCIVJBX7ALQG&algorithm=SHA1&digits=6&period=30\""
+						}
+					]
+				},
+				{
+					"name": "2FA Verify",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh_token\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYzNDYyOTUyMywianRpIjoiNjY3OGM0ZGI5ZTFiNGEzZThhNTNjZjYxNTczNTI3NTQiLCJ1c2VyX2lkIjoiZjljZjc1ZTMtMzE3Zi00MmFjLWJiZTQtZTgzZTgyNTNmODc3IiwibmFtZSI6ImFkbWluIHRlc3QiLCJvdHBfZGV2aWNlX2lkIjpudWxsLCJpc3MiOiJSRVNUMkZBIn0.eidurYDz0u2DuFzEmTqeV9IO2V-RybjvHfCjQ8msjsw\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v2/2fa/verify/795400/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v2",
+								"2fa",
+								"verify",
+								"795400",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "2fa Verify",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"refresh_token\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYzNDYyOTUyMywianRpIjoiNjY3OGM0ZGI5ZTFiNGEzZThhNTNjZjYxNTczNTI3NTQiLCJ1c2VyX2lkIjoiZjljZjc1ZTMtMzE3Zi00MmFjLWJiZTQtZTgzZTgyNTNmODc3IiwibmFtZSI6ImFkbWluIHRlc3QiLCJvdHBfZGV2aWNlX2lkIjpudWxsLCJpc3MiOiJSRVNUMkZBIn0.eidurYDz0u2DuFzEmTqeV9IO2V-RybjvHfCjQ8msjsw\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/accounts/api/v2/2fa/verify/795400/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"accounts",
+										"api",
+										"v2",
+										"2fa",
+										"verify",
+										"795400",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 18 Oct 2021 07:46:10 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "749"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": {\n        \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYzNDYyOTU3MCwianRpIjoiN2ZlMWFlMDkzMTE3NDMzMGJlMmExODVhOTk3N2ViZTgiLCJ1c2VyX2lkIjoiZjljZjc1ZTMtMzE3Zi00MmFjLWJiZTQtZTgzZTgyNTNmODc3IiwibmFtZSI6ImFkbWluIHRlc3QiLCJvdHBfZGV2aWNlX2lkIjoib3RwX3RvdHAudG90cGRldmljZS8xIiwiaXNzIjoiUkVTVDJGQSJ9.8UWhrDNjLJVXbOs7_7CtUF6rHNCGpGsJKPAajYyIGzY\",\n        \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM0NTQzNDcwLCJqdGkiOiJhZTJjYzJkYzNhMDM0OTc4OWFmNzM4Y2U2YWVlYmZjNSIsInVzZXJfaWQiOiJmOWNmNzVlMy0zMTdmLTQyYWMtYmJlNC1lODNlODI1M2Y4NzciLCJuYW1lIjoiYWRtaW4gdGVzdCIsIm90cF9kZXZpY2VfaWQiOiJvdHBfdG90cC50b3RwZGV2aWNlLzEiLCJpc3MiOiJSRVNUMkZBIn0.TYKISaKlf2qRl3RCmSa94XAD8xlSiFwRGKBcrpfbaDM\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYzNDYyOTM4OCwianRpIjoiODlkMDQ3ZGJmMTIyNDE1ODhiNTg4ZjU3Y2EyMDAwM2UiLCJ1c2VyX2lkIjoiZjljZjc1ZTMtMzE3Zi00MmFjLWJiZTQtZTgzZTgyNTNmODc3IiwibmFtZSI6ImFkbWluIHRlc3QiLCJvdHBfZGV2aWNlX2lkIjpudWxsLCJpc3MiOiJSRVNUMkZBIn0.YG2_mDF8D5DSHEV8rBpMF0SEoPcda4aJLtz2o74VUFs\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/token/refresh/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								"refresh",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Refresh",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"refresh\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYzNDYyOTM4OCwianRpIjoiODlkMDQ3ZGJmMTIyNDE1ODhiNTg4ZjU3Y2EyMDAwM2UiLCJ1c2VyX2lkIjoiZjljZjc1ZTMtMzE3Zi00MmFjLWJiZTQtZTgzZTgyNTNmODc3IiwibmFtZSI6ImFkbWluIHRlc3QiLCJvdHBfZGV2aWNlX2lkIjpudWxsLCJpc3MiOiJSRVNUMkZBIn0.YG2_mDF8D5DSHEV8rBpMF0SEoPcda4aJLtz2o74VUFs\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/token/refresh/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"token",
+										"refresh",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 18 Oct 2021 07:48:48 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "344"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM0NTQzNjI3LCJqdGkiOiIyNWM5MzYwNTg3YTA0MDE1YThlYzUwNzE2OWNlOTFjNiIsInVzZXJfaWQiOiJmOWNmNzVlMy0zMTdmLTQyYWMtYmJlNC1lODNlODI1M2Y4NzciLCJuYW1lIjoiYWRtaW4gdGVzdCIsIm90cF9kZXZpY2VfaWQiOm51bGwsImlzcyI6IlJFU1QyRkEifQ.IlgHfqpvvZaNHizqO0NxrAsokjvCqvqz1-yfuY_Z6l0\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"admin@gmail.com\",\r\n    \"password\":\"admin@1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v1/login/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v1",
+								"login",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"admin@gmail.com\",\r\n    \"password\":\"admin@1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/user/api/v1/login/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										"api",
+										"v1",
+										"login",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 17 Oct 2021 05:44:41 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "630"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": \"True\",\n    \"message\": \"User logged in  successfully\",\n    \"token\": {\n        \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYzNDUzNTg4MCwianRpIjoiZmI0MTU0ZGQ1MWRlNDUzZjlmZDkxZDhhM2U1YzYwMTMiLCJ1c2VyX2lkIjoiZjljZjc1ZTMtMzE3Zi00MmFjLWJiZTQtZTgzZTgyNTNmODc3In0.CwJ-yEDMQF6lrZrScWbSF160cu-DLHZaQ-8JSfDXd5g\",\n        \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM0NDQ5NzgwLCJqdGkiOiIxY2I1ZmY0NDM0ZWY0NzcyOWZhMmUxMjY4YTA5ODQ1MCIsInVzZXJfaWQiOiJmOWNmNzVlMy0zMTdmLTQyYWMtYmJlNC1lODNlODI1M2Y4NzcifQ.ZFIFG-cFuF2OWzlfS8LvuyIVMKZudKYiNAMbwI6SzMY\"\n    },\n    \"user_name\": \"admin test\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Protected View",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v2/2fa/protected/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v2",
+								"2fa",
+								"protected",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Protected View",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/accounts/api/v2/2fa/protected/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"accounts",
+										"api",
+										"v2",
+										"2fa",
+										"protected",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 18 Oct 2021 07:47:10 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "50"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Hello admin test, You can view this.\"\n}"
+						},
+						{
+							"name": "Protected View-Fail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/accounts/api/v2/2fa/protected/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"accounts",
+										"api",
+										"v2",
+										"2fa",
+										"protected",
+										""
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 18 Oct 2021 07:48:00 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.9.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "96"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"detail\": \"You do not have permission to perform this action until you verify your OTP device.\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM0NTQzNTY1LCJqdGkiOiJjYmQxYzM0MzU4MmM0NzQ2YmE0Y2RmNTgxOGZmZWNjMSIsInVzZXJfaWQiOiJmOWNmNzVlMy0zMTdmLTQyYWMtYmJlNC1lODNlODI1M2Y4NzciLCJuYW1lIjoiYWRtaW4gdGVzdCIsIm90cF9kZXZpY2VfaWQiOm51bGwsImlzcyI6IlJFU1QyRkEifQ.H6ud4hZE00lWjk82678GqdUfMMvDCIp5cohEJiVBpmY",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

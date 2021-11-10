@@ -1,21 +1,29 @@
-import pyotp
-
-from rest_framework import generics, status, permissions
+from django_otp import user_has_device
+from rest_framework import generics, status, permissions, views
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from accounts.models import TOTPClient
-from accounts.permissions import Is2FAEnabled
-from accounts.utils import blacklist_tokens, get_tokens_for_user
 from .serializers import (
     UserLoginSerializer,
     UserRegistrationSerializer,
 )
+from accounts.utils import (
+    get_user_totp_device,
+    get_tokens_for_user,
+    blacklist_tokens
+)
+
+from accounts.permissions import IsOtpVerified
 
 
 class UserRegistrationView(generics.CreateAPIView):
     """
-    User registration view
+    User registration view.
+    This view provides a POST request that accepts the following parameters:
+        - email: The email address
+        - password: The password to be used for the user
+        - first_name: The first name of the user
+        - last_name: The last name of the user
     """
 
     permission_classes = (permissions.AllowAny,)
@@ -67,79 +75,6 @@ class UserLoginView(generics.RetrieveAPIView):
         return Response(response, status=status_code)
 
 
-class User2FARegistrationView(APIView):
-    """
-    View to register a user with 2FA
-    """
-
-    permission_classes = (permissions.AllowAny,)
-
-    def get(self, request):
-        """
-        Generate a TOTP secret key and return it to the user
-        """
-
-        if request.user.is_2fa_enabled:
-            return Response(
-                {"error": "User already has 2FA enabled"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        totp_client = TOTPClient.objects.create(
-            user=request.user, secret=pyotp.random_base32(), label=request.user.email
-        )
-        totp_client.save()
-
-        response = {
-            "success": "True",
-            "message": "TOTP secret key generated successfully",
-            "secret_key": totp_client.secret,
-            "issuer": "Django",
-            "label": request.user.email,
-        }
-        status_code = status.HTTP_200_OK
-
-        return Response(response, status=status_code)
-
-
-class User2FAAuthenticationView(generics.RetrieveAPIView):
-    """
-    View for authenticating a user with TOTP
-    """
-
-    permission_classes = (permissions.AllowAny,)
-
-    def post(self, request):
-        """
-        POST request to authenticate a user with TOTP
-        """
-
-        data = self.request.data
-        user = self.request.user
-        totp_client = TOTPClient.objects.get(user=user)
-
-        if totp_client.verify_totp(data["totp"]):
-            # Saving 2_fa_enabled Check
-            user.is_2fa_verified = True
-            user.save()
-
-            response = {
-                "success": "True",
-                "message": "User logged in  successfully",
-                "token": get_tokens_for_user(user),
-                "user_name": user.email,
-            }
-            status_code = status.HTTP_200_OK
-        else:
-            response = {
-                "success": "False",
-                "message": "TOTP is incorrect",
-            }
-            status_code = status.HTTP_400_BAD_REQUEST
-
-        return Response(response, status=status_code)
-
-
 class LogoutHandlerView(APIView):
     """
     View for logging out a user
@@ -168,21 +103,71 @@ class LogoutHandlerView(APIView):
         return Response(response, status=status_code)
 
 
-class ProtectedView(APIView):
+class TOTPClientCreateView(views.APIView):
     """
-    View for testing authentication
+    Add a new TOTP totp_device for a user.
     """
 
-    permission_classes = (Is2FAEnabled,)
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         """
-        GET request to test authentication
+        Get the TOTP totp_device for the current user.
+        Setup a new TOTP totp_device for a user if it does not exist.
         """
-        response = {
-            "success": "True",
-            "message": "Authentication successful",
-        }
-        status_code = status.HTTP_200_OK
+        user = request.user
 
-        return Response(response, status=status_code)
+        if not user_has_device(user):
+            totp_device = user.totpdevice_set.create(confirmed=False)
+            url = totp_device.config_url
+            return Response(url, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                {"message": "User already have active TOTP device"},
+                status=status.HTTP_204_NO_CONTENT,
+            )
+
+
+class TOTPVerifyView(views.APIView):
+    """
+    Verify the TOTP token for the current user.
+    """
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, token):
+        """
+        Verify the TOTP token for the current user.
+        """
+        user = request.user
+        totp_device = get_user_totp_device(self, user)
+
+        if not totp_device == None and totp_device.verify_token(token):
+            if not totp_device.confirmed:
+                totp_device.confirmed = True
+                totp_device.save()
+
+            prev_token = blacklist_tokens(request.data["refresh_token"])
+            print(request.data)
+            if prev_token:
+                token = get_tokens_for_user(user, totp_device)
+                return Response({"token": token}, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProtectView(views.APIView):
+    """
+    Protect the API with a TOTP token.
+    """
+
+    permission_classes = [IsOtpVerified]
+
+    def get(self, request):
+        """
+        Get the TOTP token for the current user.
+        """
+        user = request.user
+        return Response(
+            {"message": "Hello {}, You can view this.".format(user.get_full_name)},
+            status=status.HTTP_200_OK,
+        )

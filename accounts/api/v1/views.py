@@ -26,6 +26,7 @@ class UserRegistrationView(generics.CreateAPIView):
         - last_name: The last name of the user
     """
 
+    throttle_scope = "anon_user"
     permission_classes = (permissions.AllowAny,)
     serializer_class = UserRegistrationSerializer
 
@@ -55,6 +56,7 @@ class UserLoginView(generics.RetrieveAPIView):
     Returns a jwt token as a response to authenticated user.
     """
 
+    throttle_scope = "anon_user"
     permission_classes = ()
     serializer_class = UserLoginSerializer
 
@@ -80,6 +82,7 @@ class LogoutHandlerView(APIView):
     View for logging out a user
     """
 
+    throttle_scope = "user"
     permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request):
@@ -108,6 +111,7 @@ class TOTPClientCreateView(views.APIView):
     Add a new TOTP totp_device for a user.
     """
 
+    throttle_scope = "user"
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
@@ -133,6 +137,7 @@ class TOTPVerifyView(views.APIView):
     Verify the TOTP token for the current user.
     """
 
+    throttle_scope = "user"
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, token):
@@ -160,6 +165,7 @@ class ProtectView(views.APIView):
     Protect the API with a TOTP token.
     """
 
+    throttle_scope = "user"
     permission_classes = [IsOtpVerified]
 
     def get(self, request):

@@ -51,28 +51,3 @@ class User(AbstractBaseUser, PermissionsMixin):
         if self.last_name:
             return f"{self.first_name} {self.last_name}"
         return self.first_name
-
-
-class TOTPClient(models.Model):
-    """
-    Model to store TOTP client details.
-    """
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    issuer = models.CharField(max_length=250, default="REST2FA")
-    label = models.CharField(max_length=250, null=True, blank=True)
-    secret = models.CharField(max_length=64)
-    last_used = models.DateTimeField(null=True)
-
-    def __str__(self):
-        return f"{self.user.first_name} | {self.issuer} | {self.label}"
-
-    def verify_totp(self, totp):
-        """
-        Verify TOTP.
-        """
-        from pyotp import TOTP
-
-        totp_client = TOTP(self.secret)
-        print(totp_client.now())
-        return totp_client.verify(totp)
